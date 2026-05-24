@@ -6,13 +6,19 @@ import matplotlib.pyplot as plt
 import tempfile
 import os
 
-# MediaPipeの読み込み
-import mediapipe as mp
-mp_drawing = mp.solutions.drawing_utils
-mp_hands = mp.solutions.hands
+# MediaPipeを安全に読み込む
+try:
+    import mediapipe as mp
+    mp_drawing = mp.solutions.drawing_utils
+    mp_hands = mp.solutions.hands
+except Exception as e:
+    st.error(f"MediaPipeの読み込みでエラーが発生しました: {e}")
 
 st.set_page_config(page_title="手指ROM自動解析システム", page_icon="✋", layout="wide")
-plt.rcParams['font.family'] = 'MS Gothic'
+
+# クラウド環境でも文字化けしないようにフォント設定を柔軟にする
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['sans-serif'] = ['DejaVu Sans', 'Arial', 'MS Gothic']
 
 st.title("✋ 手指屈曲可動域（ROM）WEB自動解析アプリ")
 st.markdown("動画から手指の骨格線をリアルタイムに描画し、**「最大屈曲・最大伸展」の推移グラフ**を作成します。")
@@ -44,6 +50,8 @@ if uploaded_file is not None:
     tfile.write(uploaded_file.read())
     cap = cv2.VideoCapture(tfile.name)
     fps = cap.get(cv2.CAP_PROP_FPS)
+    if fps == 0:
+        fps = 30.0
     
     raw_data = []
     frame_count = 0
@@ -116,7 +124,7 @@ if uploaded_file is not None:
 
             st.balloons()
         else:
-            st.error("データが正常に集計できませんでした。")
+            st.error("データが正常に集計できませんでした。動画に手が入っているか確認してください。")
 
 st.markdown("---")
 st.header("📉 複数回のリハビリ経過・可動域推移グラフ")

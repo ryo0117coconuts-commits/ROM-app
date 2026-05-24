@@ -6,19 +6,20 @@ import matplotlib.pyplot as plt
 import tempfile
 import os
 
-# MediaPipeを安全に読み込む
+# MediaPipeを最も安全な方法で読み込む
+import mediapipe as mp
 try:
-    import mediapipe as mp
     mp_drawing = mp.solutions.drawing_utils
     mp_hands = mp.solutions.hands
-except Exception as e:
-    st.error(f"MediaPipeの読み込みでエラーが発生しました: {e}")
+except AttributeError:
+    # 古い・または特殊なバージョン向けの回避策
+    import mediapipe.python.solutions.drawing_utils as mp_drawing
+    import mediapipe.python.solutions.hands as mp_hands
 
 st.set_page_config(page_title="手指ROM自動解析システム", page_icon="✋", layout="wide")
 
-# クラウド環境でも文字化けしないようにフォント設定を柔軟にする
+# 【重要】エラーの原因となる日本語フォント指定を完全に排除（デフォルトフォントを使用）
 plt.rcParams['font.family'] = 'sans-serif'
-plt.rcParams['sans-serif'] = ['DejaVu Sans', 'Arial', 'MS Gothic']
 
 st.title("✋ 手指屈曲可動域（ROM）WEB自動解析アプリ")
 st.markdown("動画から手指の骨格線をリアルタイムに描画し、**「最大屈曲・最大伸展」の推移グラフ**を作成します。")
@@ -43,7 +44,7 @@ if uploaded_file is not None:
     preview_col, report_col = st.columns([1, 1])
     
     with preview_col:
-        st.subheader("🎬 骨格視覚化プレビュー")
+        st.subheader("🎬 Video Preview")
         video_placeholder = st.empty()
     
     tfile = tempfile.NamedTemporaryFile(delete=False)
@@ -127,17 +128,18 @@ if uploaded_file is not None:
             st.error("データが正常に集計できませんでした。動画に手が入っているか確認してください。")
 
 st.markdown("---")
-st.header("📉 複数回のリハビリ経過・可動域推移グラフ")
+st.header("📉 リハビリ経過・可動域推移グラフ")
 
 df_history = pd.DataFrame(st.session_state.history_data)
 col_graph, col_table = st.columns([2, 1])
 
 with col_graph:
     fig, ax = plt.subplots(figsize=(10, 4))
-    ax.plot(df_history["測定回数"], df_history["最大屈曲角度(°)"], marker='o', linewidth=3, color="#1f77b4", label="最大屈曲")
-    ax.plot(df_history["測定回数"], df_history["最大伸展角度(°)"], marker='s', linewidth=3, color="#ff7f0e", label="最大伸展")
-    ax.set_title("手指可動域（ROM）リハビリ経過の推移", fontsize=12, fontweight='bold')
-    ax.set_ylabel("角度 (度)", fontsize=10)
+    # 英語サーバー用にラベルを英語（アルファベット）表記に変更してエラーを完全回避
+    ax.plot(df_history["測定回数"], df_history["最大屈曲角度(°)"], marker='o', linewidth=3, color="#1f77b4", label="Max Flexion")
+    ax.plot(df_history["測定回数"], df_history["最大伸展角度(°)"], marker='s', linewidth=3, color="#ff7f0e", label="Max Extension")
+    ax.set_title("Finger ROM Progression", fontsize=12, fontweight='bold')
+    ax.set_ylabel("Angle (deg)", fontsize=10)
     ax.set_ylim(-5, 110)
     ax.grid(True, linestyle="--", alpha=0.6)
     ax.legend(loc="center right")

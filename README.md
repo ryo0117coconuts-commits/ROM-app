@@ -43,4 +43,4 @@
 git clone [https://github.com/ryo0117coconuts-commits/ROM-app.git](https://github.com/ryo0117coconuts-commits/ROM-app.git)
 cd ROM-app
 pip install -r requirements.txt
-python main.py
+python app.py

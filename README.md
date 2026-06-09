@@ -26,7 +26,7 @@
 リポジトリをクローンし、必要なライブラリをインストールしたあと、Streamlitで起動します。
 
 ```bash
-git clone [https://github.com/](https://github.com/)ryo0117coconuts-commits/[リポジトリ名].git
-cd [リポジトリ名]
+git clone [https://github.com/](https://github.com/)ryo0117coconuts-commits/Rom-app.git
+cd ROM-app
 pip install -r requirements.txt
 streamlit run app.py

@@ -30,3 +30,14 @@ git clone [https://github.com/](https://github.com/)ryo0117coconuts-commits/Rom-
 cd ROM-app
 pip install -r requirements.txt
 streamlit run app.py
+
+<img width="1722" height="1030" alt="image" src="https://github.com/user-attachments/assets/8315f320-42be-4319-bccb-703bb03c2b9b" />
+
+プログラミングの知識がない現場のスタッフ様でも迷わず使えるよう、「画面の指示に従って数字（1または2）を入力するだけ」で全ての解析が完了する対話型のインターフェースを採用しています。
+
+患者ID・氏名管理機能：測定データを誰のものか識別して保存可能。
+
+2つの計測モード：PCのWebカメラを使った「リアルタイム計測」と、スマホ等で「過去に撮影した動画ファイルからの計測」の両方に対応。
+動画のアップロード後は自動で最大屈曲、最大伸展角度を抽出しグラフ作成を行います。
+<img width="3600" height="2279" alt="手指ROM経過グラフ_20260530_144127" src="https://github.com/user-attachments/assets/0861c9d8-8c64-48c7-928f-36ccd20bb3d1" />
+※実際の出力されたグラフ、出力する手指も選択可能です。

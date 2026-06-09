@@ -20,17 +20,9 @@
 - **Web Framework**: Streamlit
 - **Data Science**: Pandas, NumPy
 - **Data Visualization**: Matplotlib
-
-## 📦 起動方法（ローカル環境）
-
-リポジトリをクローンし、必要なライブラリをインストールしたあと、Streamlitで起動します。
-
-```bash
-git clone [https://github.com/](https://github.com/)ryo0117coconuts-commits/Rom-app.git
-cd ROM-app
-pip install -r requirements.txt
-streamlit run app.py
-
+💡 開発の背景（ドメイン知識 × IT）
+理学療法士としての知見を活かし、医療・リハビリ現場におけるアナログな測定業務を効率化するために開発しました。
+単なるAI技術の利用にとどまらず、「現場の人間が直感的に使えて、患者様のモチベーション向上（経過の可動化）に繋がるUI/UX」を意識して設計・実装しています。
 <img width="1722" height="1030" alt="image" src="https://github.com/user-attachments/assets/8315f320-42be-4319-bccb-703bb03c2b9b" />
 
 プログラミングの知識がない現場のスタッフ様でも迷わず使えるよう、「画面の指示に従って数字（1または2）を入力するだけ」で全ての解析が完了する対話型のインターフェースを採用しています。
@@ -41,3 +33,14 @@ streamlit run app.py
 動画のアップロード後は自動で最大屈曲、最大伸展角度を抽出しグラフ作成を行います。
 <img width="3600" height="2279" alt="手指ROM経過グラフ_20260530_144127" src="https://github.com/user-attachments/assets/0861c9d8-8c64-48c7-928f-36ccd20bb3d1" />
 ※実際の出力されたグラフ、出力する手指も選択可能です。
+  
+
+## 📦 起動方法（ローカル環境）
+
+リポジトリをクローンし、必要なライブラリをインストールしたあと、Streamlitで起動します。
+
+```bash
+git clone [https://github.com/](https://github.com/)ryo0117coconuts-commits/Rom-app.git
+cd ROM-app
+pip install -r requirements.txt
+streamlit run app.py
